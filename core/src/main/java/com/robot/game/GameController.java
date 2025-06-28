@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.robot.game.constants.FilterBits;
 import com.robot.game.constants.GameSettings;
+import com.robot.game.constants.Scores;
 import com.robot.game.enemies.EnemyArray;
 import com.robot.game.enums.Direction;
 
@@ -30,6 +31,8 @@ public class GameController {
     private volatile Room nextRoom;
     private boolean canEnter = false;
     private Future<Room> roomGenerationFuture;
+    private long score = 0;
+    private long targetScore = 0;
     World world = Main.world;
 
     boolean doorSoundPlayed = false;
@@ -104,6 +107,9 @@ public class GameController {
     Array<Direction> directions = Array.with(Direction.UP, Direction.DOWN, Direction.RIGHT, Direction.LEFT);
 
     public void update(){
+        if(score < targetScore){
+            score++;
+        }
         room.getEntrance1().closeIfPossible();
         if(!room.isBattling()){
             room.getEntrance2().openIfPossible();
@@ -158,6 +164,7 @@ public class GameController {
 
     }
     public void step(){
+        plusScore(Scores.SCORE_PER_ROOM);
         doorSoundPlayed = false;
         room.destroy();
 
@@ -238,5 +245,12 @@ public class GameController {
     }
 
 
+    public long getScore() {
+        return score;
+    }
 
+    public void plusScore(int value){
+        AudioManager.playScore();
+        targetScore += value;
+    }
 }

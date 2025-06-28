@@ -4,10 +4,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.robot.game.constants.EnemiesStat;
+import com.robot.game.constants.Scores;
 import com.robot.game.enemies.Enemy;
 import com.robot.game.enemies.BaseEnemy;
 import com.robot.game.enemies.EnemyArray;
 import com.robot.game.enemies.TurretEnemy;
+import com.robot.game.screens.GameScreen;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -102,6 +104,7 @@ public class EnemySpawnController {
             for (Enemy e :
                 enemyArray) {
                 if (e.hasToBeDestroyed) {
+                    GameScreen.gameController.plusScore(Scores.SCORE_PER_ENEMY);
                     enemyArray.list.removeValue(e, true);
                     enemyArray.getPoolSet().get(e.getType()).add(e);
                     e.destroy();

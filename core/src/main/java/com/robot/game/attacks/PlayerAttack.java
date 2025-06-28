@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.robot.game.Player;
@@ -16,17 +17,22 @@ import com.robot.game.constants.GameSettings;
 import com.robot.game.constants.PlayerStat;
 import com.robot.game.enums.PlayerBodyState;
 
+import java.util.Random;
+
 public class PlayerAttack extends Attack {
     public double attackCounter;
+    boolean critical;
     public Player player;
     public boolean playerRowChanged = true;
     boolean enteredAttack = false;
+    Texture criticalTexture;
     public boolean canSetMoving = false;
 
 
 
     public PlayerAttack(float angle, Player player) {
         super(player.getX(), player.getY(), PlayerStat.PLAYER_ATTACK_WIDTH, PlayerStat.PLAYER_ATTACK_HEIGHT, new Texture(Resources.PLAYER_ATTACK_TEXTURE), PlayerStat.PLAYER_ATTACK_RANGE, (byte) 1, PlayerStat.PLAYER_ATTACK_DURATION, angle);
+        criticalTexture = new Texture(Resources.PLAYER_CRIT_TEXTURE);
         sprite = new Sprite(texture);
         this.player = player;
         sprite.setSize(getWidth(), getHeight());
@@ -48,6 +54,7 @@ public class PlayerAttack extends Attack {
 
     @Override
     public void update() {
+        System.out.println(getDamage());
         canSetMoving = done;
 
         body.setAwake(true);
@@ -76,6 +83,7 @@ public class PlayerAttack extends Attack {
 
 
         if(done){
+            critical = false;
             enteredAttack = false;
             if(!playerRowChanged){
                 player.setBodyState(player.getJoystick().isSendingMove ? PlayerBodyState.MOVING : PlayerBodyState.IDLE);
@@ -89,9 +97,6 @@ public class PlayerAttack extends Attack {
 
 
                     }
-
-
-
 
             }
            disable();
@@ -123,12 +128,18 @@ public class PlayerAttack extends Attack {
     }
 
     public void resetAttack(){
-
+        Random random = new Random();
+        critical = random.nextInt(4) == 0;
+        if(critical) sprite.setTexture(criticalTexture);
+        else sprite.setTexture(texture);
         reSetBits();
         attackCounter = PlayerStat.PLAYER_ATTACK_COOLDOWN;
 
         currentDuration = 0;
         done = false;
+    }
+    public int getDamage(){
+        return critical ? 2 : 1;
     }
 
 }

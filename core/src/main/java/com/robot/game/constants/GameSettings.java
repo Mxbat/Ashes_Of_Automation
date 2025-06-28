@@ -15,12 +15,5 @@ public class GameSettings {
     public static final int ICONS_X = 25;
     public static final int ICONS_Y_OFFSET = 125;
     public static final int WALLS_WIDTH = 50;
-
-
-
-
-
-
-
-
+    public static final float SCORE_FONT_SCALE = 0.9f;
 }

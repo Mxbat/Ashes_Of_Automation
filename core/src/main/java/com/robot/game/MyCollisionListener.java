@@ -59,7 +59,7 @@ public class MyCollisionListener implements ContactListener {
 
             System.out.println("hit");
             ((Enemy) a).setHit(true);
-            if(((Enemy) a).getBody().isActive()) ((Enemy) a).reduceHp(((Attack) b).damage);
+            if(((Enemy) a).getBody().isActive()) ((Enemy) a).reduceHp(((PlayerAttack) b).getDamage());
         }
         if((a instanceof PlayerAttack)  && b instanceof Enemy){
             if(((Enemy) b).isSpawning()){
@@ -67,7 +67,7 @@ public class MyCollisionListener implements ContactListener {
             }
 
             ((Enemy) b).setHit(true);
-            if(((Enemy) b).getBody().isActive()) ((Enemy) b).reduceHp(((Attack) a).damage);
+            if(((Enemy) b).getBody().isActive()) ((Enemy) b).reduceHp(((PlayerAttack) a).getDamage());
 
         }
 

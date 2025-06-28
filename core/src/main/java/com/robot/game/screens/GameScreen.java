@@ -44,7 +44,6 @@ import box2dLight.RayHandler;
 public class GameScreen extends ScreenAdapter {
     public static ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    FPSLogger fpsLogger = new FPSLogger();
     BitmapFont font;
     Texture staminaIcon;
 
@@ -75,7 +74,7 @@ public class GameScreen extends ScreenAdapter {
         this.main = main;
     }
 
-    GameController gameController;
+    static public GameController gameController;
 
     Array<Button> buttons = new Array<>();
     PointLight pointLight;
@@ -238,6 +237,10 @@ public class GameScreen extends ScreenAdapter {
         font.setColor(Color.SKY);
         batch.draw(staminaIcon, GameSettings.ICONS_X, GameSettings.SCREEN_HEIGHT - GameSettings.ICONS_Y_OFFSET - GameSettings.ICONS_SIZE * 1.2f, GameSettings.ICONS_SIZE, GameSettings.ICONS_SIZE);
         font.draw(batch, "" + player.getRoundedStamina(), GameSettings.ICONS_X + 110, GameSettings.SCREEN_HEIGHT - 150);
+        font.setColor(Color.WHITE);
+        font.getData().setScale(GameSettings.SCORE_FONT_SCALE);
+        font.draw(batch, Long.toString(gameController.getScore()), (float) GameSettings.SCREEN_WIDTH /2 - 25, GameSettings.SCREEN_HEIGHT - 25);
+
 
         attack.draw(batch);
         pause.draw(batch);

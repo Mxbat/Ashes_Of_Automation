@@ -8,15 +8,19 @@ public class AudioManager {
     static private Sound doorSound;
     static private Sound gameOver;
     static private Sound enemyAttack;
+    static private Sound score;
     static private Sound playerAttack;
     private static final float playerAttackVolume = 2f;
     static float doorSoundVolume = 0.15f;
     static Music music;
     static private Sound hit;
     private static final float gameOverSoundVolume = 2f;
-    private static final float hitSoundVolume = 1f;
+    private static final float enemyAttackSoundVolume = 0.15f;
+    private static final float hitSoundVolume = 0.4f;
+    public static final float scoreSound = 0.7f;
 
     public AudioManager() {
+        score = Gdx.audio.newSound(Gdx.files.internal(Resources.SCORE_SOUND));
         enemyAttack = Gdx.audio.newSound(Gdx.files.internal(Resources.ENEMY_SOUND));
         hit = Gdx.audio.newSound(Gdx.files.internal(Resources.HIT_SOUND));
         playerAttack = Gdx.audio.newSound(Gdx.files.internal(Resources.PLAYER_ATTACK_SOUND));
@@ -36,10 +40,12 @@ public class AudioManager {
     }
     public static void playPlayerAttack(){
         playerAttack.play(playerAttackVolume);
-
+    }
+    public static void playScore(){
+        score.play(scoreSound);
     }
     public static void playEnemyAttack(){
-        enemyAttack.play();
+        enemyAttack.play(enemyAttackSoundVolume);
     }
 
     public static void playHit() {

@@ -30,6 +30,7 @@ public class Resources {
     public static final String ENTRANCE_ANIM =  "Obstacles/door.png";
     public static final String HAMMER_ATTACK_TEXTURE = "enemies/hammer/hammer_attack.png";
     public static final String PLAYER_ATTACK_TEXTURE = "Player/player_attack.png";
+    public static final String PLAYER_CRIT_TEXTURE = "Player/player_crit.png";
     public static final String TURRET_BULLET_TEXTURE = "enemies/turret/turret_attack.png";
     public static final String CART_ATTACK_TEXTURE = "enemies/cart/cart_attack.png";
     public static final String JOYSTICK_BODY = "controls/joystick_body.png";
@@ -38,6 +39,7 @@ public class Resources {
     public static final String ATTACK_BUTTON = "controls/attack_button.png";
     public static final String PAUSE_BUTTON = "controls/pause_button.png";
     public static final String ENEMY_SOUND = "sounds/enemy_attack_sound.mp3";
+    public static final String SCORE_SOUND = "sounds/scoring.mp3";
 
 
 
