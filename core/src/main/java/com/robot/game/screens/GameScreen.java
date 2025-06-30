@@ -80,7 +80,7 @@ public class GameScreen extends ScreenAdapter {
     Array<Button> buttons = new Array<>();
     PointLight pointLight;
     Texture attackButtonTexture;
-    Texture healButtonTexture;
+    TextureRegion healButtonTexture;
     TextureRegion pauseButtonTexture;
 
 
@@ -94,7 +94,7 @@ public class GameScreen extends ScreenAdapter {
         heartIcon = new Texture(Resources.HEART_ICON);
         scrapIcon = new Texture(Resources.SCRAP_ICON);
         attackButtonTexture = new Texture(Resources.ATTACK_BUTTON);
-        healButtonTexture = new Texture(Resources.HEAL_BUTTON);
+        healButtonTexture = new TextureRegion(new Texture(Resources.HEAL_BUTTON));
         staminaIcon = new Texture(Resources.STAMINA_ICON);
         pauseButtonTexture = new TextureRegion(new Texture(Resources.PAUSE_BUTTON));
 
@@ -131,10 +131,10 @@ public class GameScreen extends ScreenAdapter {
 
 
 
-        heal = new Button( (UI.HEAL_BUTTON_POS_X - UI.HEAL_BUTTON_DIAMETER), UI.HEAL_BUTTON_POS_Y, UI.HEAL_BUTTON_DIAMETER, healButtonTexture);
+        heal = new Button((UI.HEAL_BUTTON_POS_X - UI.HEAL_BUTTON_DIAMETER), UI.HEAL_BUTTON_POS_Y, UI.HEAL_BUTTON_DIAMETER, UI.PAUSE_BUTTON_DIAMETER, UI.PAUSE_BUTTON_DIAMETER, healButtonTexture);
         attack = new Button(UI.ATTACK_BUTTON_POS_X,
             UI.ATTACK_BUTTON_POS_Y, UI.ATTACK_BUTTON_DIAMETER, attackButtonTexture);
-        pause = new Button(GameSettings.SCREEN_WIDTH - UI.PAUSE_BUTTON_DIAMETER * 1.2f, GameSettings.SCREEN_HEIGHT - UI.PAUSE_BUTTON_DIAMETER * 1.2f, 100, 100, UI.PAUSE_BUTTON_DIAMETER, pauseButtonTexture);
+        pause = new Button(GameSettings.SCREEN_WIDTH - UI.PAUSE_BUTTON_DIAMETER * 1.2f, GameSettings.SCREEN_HEIGHT - UI.PAUSE_BUTTON_DIAMETER * 1.2f, UI.PAUSE_BUTTON_DIAMETER, UI.PAUSE_BUTTON_DIAMETER, UI.PAUSE_BUTTON_DIAMETER, pauseButtonTexture);
 
         buttons.add(attack);
         buttons.add(pause);
@@ -256,6 +256,7 @@ public class GameScreen extends ScreenAdapter {
              buttons) {
             b.draw(batch);
         }
+        buttons.get(2).changeState(GameScreen.gameController.getScrap() >= GameSettings.HEAL_COST);
 
         //debugRenderer.render(world, camera.combined.scl(32));
         batch.end();
