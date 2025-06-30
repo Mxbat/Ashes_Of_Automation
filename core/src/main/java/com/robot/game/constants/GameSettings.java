@@ -10,10 +10,13 @@ public class GameSettings {
     public final static short SCREEN_HEIGHT = (short) (Gdx.graphics.getHeight() * multiplyCoefficient);
 
     public static final float STAMINA_FONT_SCALE = 0.8F;
+    public static final float SCRAP_FONT_SCALE = 0.7F;
     public static final float HP_FONT_SCALE = 1.2F;
     public static final int ICONS_SIZE = 75;
     public static final int ICONS_X = 25;
     public static final int ICONS_Y_OFFSET = 125;
     public static final int WALLS_WIDTH = 50;
     public static final float SCORE_FONT_SCALE = 0.9f;
+    public static final int HEAL_COST = 10;
+    public static final int ROOMS_PER_PLUS_DIFFICULTY = 4;
 }

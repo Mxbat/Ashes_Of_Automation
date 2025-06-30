@@ -28,7 +28,7 @@ public class Button {
         this.y = y;
         this.a = a;
         this.textureRegion = textureRegion;
-        sprite = new Sprite(textureRegion, 0, 0,scrWidth, scrHeight);
+        sprite = new Sprite(textureRegion, 0, 0, scrWidth, scrHeight);
         sprite.setSize(a, a);
         sprite.setX(x);
         sprite.setY(y);

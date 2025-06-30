@@ -89,7 +89,7 @@ public class MyCollisionListener implements ContactListener {
             ((Player) b).setGettingHit(true);
             if(a instanceof TurretBullet){
                 ((TurretBullet) a).setHasToBeDestroyed(true);
-                ((Player) b).reduceHp();
+                ((Player) b).reduceHp(((EnemyAttack)a).getDamage());
                 return;
             }
             ((EnemyAttack) a).enemy.setDoingHit(true);
@@ -101,7 +101,7 @@ public class MyCollisionListener implements ContactListener {
             ((Player) a).setGettingHit(true);
             if(b instanceof TurretBullet){
                 ((TurretBullet) b).setHasToBeDestroyed(true);
-                ((Player) a).reduceHp();
+                ((Player) a).reduceHp(((EnemyAttack)b).getDamage());
                 return;
             }
             ((BaseEnemyAttack) b).enemy.setDoingHit(true);

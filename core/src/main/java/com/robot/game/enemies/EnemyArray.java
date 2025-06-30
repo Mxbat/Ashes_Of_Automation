@@ -7,6 +7,7 @@ import com.robot.game.Raycast;
 import com.robot.game.Main;
 import com.robot.game.Player;
 import com.robot.game.Room;
+import com.robot.game.screens.GameScreen;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -32,13 +33,13 @@ public class EnemyArray implements Iterable<Enemy>{
         this.player = player;
 
         for (int i = 0; i < 6; i++) {
-            hammerPool.add(new BaseEnemy(startPos, startPos, player, Main.world, room, "Hammer"));
+            hammerPool.add(new BaseEnemy(startPos, startPos, player, GameScreen.world, room, "Hammer"));
         }
         for (int i = 0; i < 6; i++) {
-            turretPool.add(new TurretEnemy(startPos, startPos, player, Main.world, room));
+            turretPool.add(new TurretEnemy(startPos, startPos, player, GameScreen.world, room));
         }
         for (int i = 0; i < 3; i++) {
-            cartPool.add(new BaseEnemy(startPos, startPos, player, Main.world, room, "Cart"));
+            cartPool.add(new BaseEnemy(startPos, startPos, player, GameScreen.world, room, "Cart"));
         }
         poolSet.put("Hammer", hammerPool);
         poolSet.put("Turret", turretPool);
@@ -66,7 +67,7 @@ public class EnemyArray implements Iterable<Enemy>{
         return result;
     }
     public void update(){
-        setPathBlocked(player, Main.world);
+        setPathBlocked(player, GameScreen.world);
         for (Enemy e:
              this) {
             e.update();

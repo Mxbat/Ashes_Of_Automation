@@ -73,4 +73,11 @@ public abstract class Attack extends GameObject {
         initCategoryBits((short) 0, (short) 0, (short) 0);
     }
 
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int value) {
+        damage = value;
+    }
 }

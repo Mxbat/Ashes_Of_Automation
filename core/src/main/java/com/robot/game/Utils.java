@@ -1,10 +1,13 @@
 package com.robot.game;
 
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.robot.game.constants.GameSettings;
+
+import java.util.Random;
 
 import box2dLight.PointLight;
 
@@ -29,6 +32,10 @@ public class Utils {
         );
 
         child.setRotation(parentRotation + localRotation);
+    }
+    public static int getScrapPerEnemy(){
+        Random random = new Random();
+        return random.nextInt(3) + 3;
     }
 
 }

@@ -16,6 +16,7 @@ import java.util.Random;
 
 public class EnemySpawnController {
     EnemyArray enemyArray;
+    GameController gameController;
 
 
     public void setRoom(Room room) {
@@ -44,9 +45,10 @@ public class EnemySpawnController {
     Room currentRoom;
     int times;
 
-    public EnemySpawnController(EnemyArray enemyArray, Room room, World world) {
+    public EnemySpawnController(EnemyArray enemyArray, Room room, World world, GameController gameController) {
         this.enemyArray = enemyArray;
         this.room = room;
+        this.gameController = gameController;
         this.world = world;
         currentRoom = room;
         this.freePositions = getFreePositions(room);
@@ -104,10 +106,13 @@ public class EnemySpawnController {
             for (Enemy e :
                 enemyArray) {
                 if (e.hasToBeDestroyed) {
+                    gameController.plusScrap(Utils.getScrapPerEnemy());
+
                     GameScreen.gameController.plusScore(Scores.SCORE_PER_ENEMY);
                     enemyArray.list.removeValue(e, true);
                     enemyArray.getPoolSet().get(e.getType()).add(e);
                     e.destroy();
+
                     e.attack.done = true;
                 }
             }

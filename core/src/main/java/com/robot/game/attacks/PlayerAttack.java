@@ -129,7 +129,7 @@ public class PlayerAttack extends Attack {
 
     public void resetAttack(){
         Random random = new Random();
-        critical = random.nextInt(4) == 0;
+        critical = random.nextInt(3) == 0;
         if(critical) sprite.setTexture(criticalTexture);
         else sprite.setTexture(texture);
         reSetBits();

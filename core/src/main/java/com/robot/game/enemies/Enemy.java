@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -15,14 +14,11 @@ import com.robot.game.AudioManager;
 import com.robot.game.Resources;
 import com.robot.game.attacks.Attack;
 import com.robot.game.GameObject;
-import com.robot.game.screens.GameScreen;
 import com.robot.game.Player;
 import com.robot.game.Utils;
 import com.robot.game.constants.EnemiesStat;
 import com.robot.game.constants.GameSettings;
 import com.robot.game.enums.EnemyState;
-
-import box2dLight.PointLight;
 
 public abstract class Enemy extends GameObject {
     public boolean isDoingHit() {
@@ -34,6 +30,9 @@ public abstract class Enemy extends GameObject {
     }
 
     private boolean isDoingHit;
+    boolean shouldIncreaseDamage = true;
+    int baseHp;
+    int baseDamage = 1;
     boolean spawning;
     Animation animation;
     TextureRegion spawningRegion;
@@ -47,7 +46,7 @@ public abstract class Enemy extends GameObject {
     }
 
     private EnemyState enemyState = EnemyState.ACTION;
-    byte hp = EnemiesStat.HAMMER_BOT_HP;
+    int hp;
     boolean hpReduced = false;
     Vector2 noPos = new Vector2(Integer.MAX_VALUE, Integer.MAX_VALUE);
 
@@ -58,7 +57,7 @@ public abstract class Enemy extends GameObject {
     }
     boolean hit = false;
     TextureRegion textureRegion;
-    float moveDistance;
+    float speed;
     public boolean hasToBeDestroyed;
     public float angle = 0;
     public Player player;
@@ -91,7 +90,10 @@ public abstract class Enemy extends GameObject {
     }
 
     public Enemy(float x, float y, float width, float height, Player player, Texture texture, World world, BodyDef.BodyType bodyType) {
+
         super(x, y, width, height, texture, bodyType);
+
+
         spawningRegion = new TextureRegion(new Texture(Resources.SPAWNING));
         spawning = true;
         this.texture = texture;
@@ -166,6 +168,13 @@ public abstract class Enemy extends GameObject {
 
 
     String type;
+    public  void plusDifficulty(){
+        baseHp += 1;
+        if(shouldIncreaseDamage) {
+            baseDamage += 1;
+        }
+        shouldIncreaseDamage = !shouldIncreaseDamage;
+    };
     public String getType() {
         return type;
     }

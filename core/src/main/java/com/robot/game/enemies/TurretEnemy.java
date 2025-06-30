@@ -41,7 +41,7 @@ public class TurretEnemy extends Enemy{
         headTexture = new Texture(Resources.TURRET_HEAD);
         baseTexture = new Texture(Resources.TURRET_BASE_TEXTURE);
         this.room = room;
-
+        baseHp = EnemiesStat.TURRET_HP;
         hp = EnemiesStat.TURRET_HP;
         type = "Turret";
         textureRegion = new TextureRegion(headTexture);
@@ -78,10 +78,11 @@ public class TurretEnemy extends Enemy{
         setEnemyState(EnemyState.ACTION);
         attack.reSetAll();
         hpReduced = false;
-        hp = EnemiesStat.TURRET_HP;
+        hp = baseHp;
         setPosition(position);
         hasToBeDestroyed = false;
         spawning = true;
+        attack.setDamage(baseDamage);
     }
 
     @Override
@@ -91,7 +92,6 @@ public class TurretEnemy extends Enemy{
         attack.disable();
         setPosNone();
         hpReduced = false;
-        hp = EnemiesStat.HAMMER_BOT_HP;
         hasToBeDestroyed = false;
     }
 
@@ -106,13 +106,14 @@ public class TurretEnemy extends Enemy{
 
     @Override
     public void update() {
-        body.setAwake(true);
+
         countSpawn();
 
         if(spawning){
+            body.setActive(false);
             return;
         }
-
+        body.setActive(true);
         if(hp <= 0){
             hasToBeDestroyed = true;
         }
@@ -153,6 +154,7 @@ public class TurretEnemy extends Enemy{
         sprite.setPosition(getX(), getY());
 
     }
+
 
     public Room getRoom() {
         return room;

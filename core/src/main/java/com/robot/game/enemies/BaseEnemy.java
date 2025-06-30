@@ -33,6 +33,7 @@ public class BaseEnemy extends Enemy{
     AStar aStar;
 
 
+
     boolean pathToPlayerBlocked = true;
     Vector2 position = new Vector2();
 
@@ -54,6 +55,7 @@ public class BaseEnemy extends Enemy{
     Array<Vector2> path;
     int currentWaypoint = 0;
     Node start;
+    float baseSpeed;
     Node end;
     float changeCounter;
     boolean needToUpdatePath = true;
@@ -63,12 +65,22 @@ public class BaseEnemy extends Enemy{
     public BaseEnemy(float x, float y, Player player, World world, Room room, String type) {
         super(x, y, 200, 200, player, null, world, BodyDef.BodyType.DynamicBody);
         sprite = new Sprite();
-
+        switch (type){
+            case "Hammer":
+                baseHp = EnemiesStat.HAMMER_BOT_HP;
+                break;
+            case "Turret":
+                baseHp = EnemiesStat.TURRET_HP;
+                break;
+            case "Cart":
+                baseHp = EnemiesStat.CART_HP;
+                break;
+        }
         if(type.equals("Hammer")){
             hp = EnemiesStat.HAMMER_BOT_HP;
 
             textureRegion = new TextureRegion(new Texture(Resources.HAMMER_REGION));
-            moveDistance = EnemiesStat.HAMMER_SPEED;
+            speed = EnemiesStat.HAMMER_SPEED;
 
             attack = new BaseEnemyAttack(x, y, EnemiesStat.HAMMER_ATTACK_WIDTH, EnemiesStat.HAMMER_ATTACK_HEIGHT, new Texture(Resources.HAMMER_ATTACK_TEXTURE), EnemiesStat.NORMAL_ATTACK_RANGE, 1, EnemiesStat.NORMAL_ATTACK_DURATION, angle, this);
         }
@@ -76,8 +88,16 @@ public class BaseEnemy extends Enemy{
             hp = EnemiesStat.CART_HP;
 
             textureRegion = new TextureRegion(new Texture(Resources.CART_REGION));
-            moveDistance = EnemiesStat.CART_SPEED;
+            speed = EnemiesStat.CART_SPEED;
             attack = new BaseEnemyAttack(x, y, EnemiesStat.CART_ATTACK_WIDTH, EnemiesStat.CART_ATTACK_HEIGHT, new Texture(Resources.CART_ATTACK_TEXTURE), EnemiesStat.NORMAL_ATTACK_RANGE, 1, EnemiesStat.NORMAL_ATTACK_DURATION, angle, this);
+        }
+        switch (type){
+            case "Hammer":
+                baseSpeed = EnemiesStat.HAMMER_SPEED;
+                break;
+            case "Cart":
+                baseSpeed = EnemiesStat.CART_SPEED;
+                break;
         }
         sprite.setOriginCenter();
         sprite = new Sprite(spawningRegion, 0, 0, 50 ,50);
@@ -131,7 +151,7 @@ public class BaseEnemy extends Enemy{
 
         if (!shouldGoByPath) {
             direction.set(player.getX() + player.getWidth()/4 - position.x, player.getY() + player.getWidth()/4 - position.y).nor();
-            body.setLinearVelocity(direction.cpy().nor().scl(moveDistance));
+            body.setLinearVelocity(direction.cpy().nor().scl(speed));
             return;
         }
 
@@ -169,7 +189,7 @@ public class BaseEnemy extends Enemy{
 
             float distanceToTarget = (float) Utils.doPythagoras(enemyCenterX, enemyCenterY, targetX, targetY);
 
-            if (distanceToTarget <= moveDistance * 2) {
+            if (distanceToTarget <= speed * 2) {
                 currentWaypoint++;
 
             }
@@ -178,16 +198,19 @@ public class BaseEnemy extends Enemy{
             }
         }
 
-        body.setLinearVelocity(direction.cpy().scl(moveDistance));
+        body.setLinearVelocity(direction.cpy().scl(speed));
     }
 
     public void update(){
+
         setSensorIfNeed();
         countSpawn();
 
         if(spawning){
+            body.setActive(false);
             return;
         }
+        body.setActive(true);
         animation.play();
 
 
@@ -215,7 +238,11 @@ public class BaseEnemy extends Enemy{
         sprite.setY(getY());
     }
 
-
+    @Override
+    public void plusDifficulty() {
+        super.plusDifficulty();
+        baseSpeed += 0.1f;
+    }
 
 
     @Override
@@ -234,15 +261,11 @@ public class BaseEnemy extends Enemy{
 
 
         hpReduced = false;
-
-        if(type.equals("Hammer")){
-            hp = EnemiesStat.HAMMER_BOT_HP;
-        }
-        else {
-            hp = EnemiesStat.CART_HP;
-        }
+        speed = baseSpeed;
+        hp = baseHp;
         setPosition(position);
         hasToBeDestroyed = false;
+        attack.setDamage(baseDamage);
 
     }
 

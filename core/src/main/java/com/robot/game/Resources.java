@@ -23,6 +23,7 @@ public class Resources {
     public static final String GAME_OVER = "sounds/game_over.mp3";
     public static final String PLAYER_ATTACK_SOUND = "sounds/player_attack.mp3";
     public static final String HIT_SOUND = "sounds/hit.mp3";
+    public static final String SCRAP_ICON = "icons/scrap.png";
     public static String _1x4_Glow = "Obstacles/convGlow.png";
     public static String _2x4_Glow = "Obstacles/eng1Glow.png";
     public static String _2x3_Glow = "Obstacles/eng2Glow.png";
@@ -40,6 +41,7 @@ public class Resources {
     public static final String PAUSE_BUTTON = "controls/pause_button.png";
     public static final String ENEMY_SOUND = "sounds/enemy_attack_sound.mp3";
     public static final String SCORE_SOUND = "sounds/scoring.mp3";
+    public static final String HEAL_BUTTON = "controls/heal_button.png";
 
 
 

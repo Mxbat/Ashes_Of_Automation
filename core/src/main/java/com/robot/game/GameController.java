@@ -2,8 +2,6 @@ package com.robot.game;
 
 import static com.robot.game.screens.GameScreen.rayHandler;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,10 +12,13 @@ import com.badlogic.gdx.utils.Array;
 import com.robot.game.constants.FilterBits;
 import com.robot.game.constants.GameSettings;
 import com.robot.game.constants.Scores;
+import com.robot.game.enemies.Enemy;
 import com.robot.game.enemies.EnemyArray;
 import com.robot.game.enums.Direction;
+import com.robot.game.screens.GameScreen;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -27,13 +28,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import box2dLight.PointLight;
 
 public class GameController {
+    private int roomsPassedForDifficultyChange;
     private final AtomicBoolean needToGenerateRoom = new AtomicBoolean(true);
     private volatile Room nextRoom;
     private boolean canEnter = false;
     private Future<Room> roomGenerationFuture;
     private long score = 0;
+    private int scrap = 0;
     private long targetScore = 0;
-    World world = Main.world;
+    World world = GameScreen.world;
 
     boolean doorSoundPlayed = false;
 
@@ -76,7 +79,7 @@ public class GameController {
         createPhysicalRoom(room);
 
         enemyArray = new EnemyArray(main, player, room);
-        spawner = new EnemySpawnController(enemyArray, room, world);
+        spawner = new EnemySpawnController(enemyArray, room, world, this);
 
         spawner.generateEnemies(0);
         spawner.setRoom(room);
@@ -164,6 +167,19 @@ public class GameController {
 
     }
     public void step(){
+        if(roomsPassedForDifficultyChange >= GameSettings.ROOMS_PER_PLUS_DIFFICULTY){
+            for (Map.Entry<String, Array<Enemy>> entry : enemyArray.getPoolSet().entrySet()) {
+                for (Enemy enemy : entry.getValue()){
+                    enemy.plusDifficulty();
+                }
+            }
+            roomsPassedForDifficultyChange = 0;
+        }
+        else {
+            roomsPassedForDifficultyChange++;
+        }
+
+
         plusScore(Scores.SCORE_PER_ROOM);
         doorSoundPlayed = false;
         room.destroy();
@@ -252,5 +268,20 @@ public class GameController {
     public void plusScore(int value){
         AudioManager.playScore();
         targetScore += value;
+    }
+    public void plusScrap(int value){
+        scrap += value;
+    }
+
+    public int getScrap() {
+        return scrap;
+    }
+
+    public void setScrap(int scrap) {
+        this.scrap = scrap;
+    }
+
+    public void minusScrap(int value){
+        scrap -= value;
     }
 }

@@ -64,8 +64,8 @@ public class Player extends GameObject {
     }
 
     private boolean isGettingHit = false;
-    public void reduceHp(){
-        hp-=1;
+    public void reduceHp(int value){
+        hp-=value;
         AudioManager.playHit();
     }
     public int getHp() {
@@ -359,5 +359,10 @@ public class Player extends GameObject {
 
     public Array<EnemyAttack> getEnemiesAttacks() {
         return enemyAttacks;
+    }
+
+    public void plusHp(int value) {
+        GameScreen.gameController.minusScrap(GameSettings.HEAL_COST);
+        hp += value;
     }
 }

@@ -1,10 +1,8 @@
 package com.robot.game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -49,6 +47,8 @@ public class GameScreen extends ScreenAdapter {
 
     Joystick joystick;
     Texture heartIcon;
+    Texture scrapIcon;
+    public static World world;
     public static GameStage gameStage;
 
 
@@ -56,10 +56,11 @@ public class GameScreen extends ScreenAdapter {
 
 
     Player player;
-    World world;
+
     public static AttackArray attackArray;
     Button attack;
     Button pause;
+    Button heal;
 
 
 
@@ -79,6 +80,7 @@ public class GameScreen extends ScreenAdapter {
     Array<Button> buttons = new Array<>();
     PointLight pointLight;
     Texture attackButtonTexture;
+    Texture healButtonTexture;
     TextureRegion pauseButtonTexture;
 
 
@@ -87,16 +89,19 @@ public class GameScreen extends ScreenAdapter {
         camera.setToOrtho(false, GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT);
         attackArray = new AttackArray();
         gameStage = GameStage.PLAYING;
-        rayHandler = new RayHandler(Main.world);
+        world = new World(new Vector2(0, 0), true);
+        rayHandler = new RayHandler(world);
         heartIcon = new Texture(Resources.HEART_ICON);
+        scrapIcon = new Texture(Resources.SCRAP_ICON);
         attackButtonTexture = new Texture(Resources.ATTACK_BUTTON);
+        healButtonTexture = new Texture(Resources.HEAL_BUTTON);
         staminaIcon = new Texture(Resources.STAMINA_ICON);
         pauseButtonTexture = new TextureRegion(new Texture(Resources.PAUSE_BUTTON));
 
         FontManager fontManager = new FontManager();
         font = fontManager.getFont();
 
-        world = Main.world;
+
         joystick = new Joystick(50, 50, (int) UI.JOYSTICK_DIAMETER,  main);
         player = new Player(joystick,  800, 600, world);
 
@@ -126,13 +131,14 @@ public class GameScreen extends ScreenAdapter {
 
 
 
-
+        heal = new Button( (UI.HEAL_BUTTON_POS_X - UI.HEAL_BUTTON_DIAMETER), UI.HEAL_BUTTON_POS_Y, UI.HEAL_BUTTON_DIAMETER, healButtonTexture);
         attack = new Button(UI.ATTACK_BUTTON_POS_X,
             UI.ATTACK_BUTTON_POS_Y, UI.ATTACK_BUTTON_DIAMETER, attackButtonTexture);
         pause = new Button(GameSettings.SCREEN_WIDTH - UI.PAUSE_BUTTON_DIAMETER * 1.2f, GameSettings.SCREEN_HEIGHT - UI.PAUSE_BUTTON_DIAMETER * 1.2f, 100, 100, UI.PAUSE_BUTTON_DIAMETER, pauseButtonTexture);
 
         buttons.add(attack);
         buttons.add(pause);
+        buttons.add(heal);
 
         Gdx.input.setInputProcessor(new InputAdapt(main, Main.camera, joystick, buttons, player, world));
 
@@ -162,9 +168,7 @@ public class GameScreen extends ScreenAdapter {
 
         if(gameStage == GameStage.PLAYING){
             if(!gameController.enemyArray.list.isEmpty()) enemy = gameController.enemyArray.getClosestEnemy();
-            camera.update();
-            batch.begin();
-            batch.setProjectionMatrix(camera.combined);
+
             gameController.update();
             if(!gameController.enemyArray.list.isEmpty() && enemy != null) player.setCanSeeEnemy(
                 !Raycast.lightBehindWall(player.body, enemy.body, world) &&
@@ -185,26 +189,26 @@ public class GameScreen extends ScreenAdapter {
             player.update(enemy);
 
 
-            batch.end();
+
 
             world.step(1/60f, 5, 5);
 
-            batch.begin();
 
-            batch.end();
 
-            batch.setProjectionMatrix(hudCam.combined);
-            batch.begin();
+
+
 
             joystick.normalize();
-            batch.end();
+
 
             camera.position.x = player.getX() + player.getWidth()/2;
             camera.position.y = player.getY() + player.getWidth()/2;
         }
         ScreenUtils.clear(Color.BLACK);
-        batch.setProjectionMatrix(camera.combined);
+        camera.update();
         batch.begin();
+        batch.setProjectionMatrix(camera.combined);
+
 
         gameController.getRoom().drawFloor(batch);
         gameController.getRoom().draw(batch);
@@ -240,11 +244,22 @@ public class GameScreen extends ScreenAdapter {
         font.setColor(Color.WHITE);
         font.getData().setScale(GameSettings.SCORE_FONT_SCALE);
         font.draw(batch, Long.toString(gameController.getScore()), (float) GameSettings.SCREEN_WIDTH /2 - 25, GameSettings.SCREEN_HEIGHT - 25);
+        batch.draw(scrapIcon, GameSettings.ICONS_X, GameSettings.SCREEN_HEIGHT - 300, GameSettings.ICONS_SIZE, GameSettings.ICONS_SIZE);
+        font.getData().setScale(GameSettings.SCRAP_FONT_SCALE);
+        font.draw(batch, Long.toString(gameController.getScrap()), GameSettings.ICONS_X + GameSettings.ICONS_SIZE*1.5f, GameSettings.SCREEN_HEIGHT - 230);
+        if(gameController.getScrap() < GameSettings.HEAL_COST) font.setColor(Color.RED);
+        else font.setColor(Color.WHITE);
+        font.draw(batch, Integer.toString(GameSettings.HEAL_COST), UI.HEAL_BUTTON_POS_X - UI.HEAL_BUTTON_DIAMETER/1.2f, UI.HEAL_BUTTON_POS_Y - 10);
+        batch.draw(scrapIcon, UI.HEAL_BUTTON_POS_X - UI.HEAL_BUTTON_DIAMETER/3f, UI.HEAL_BUTTON_POS_Y - GameSettings.ICONS_SIZE, GameSettings.ICONS_SIZE, GameSettings.ICONS_SIZE);
 
+        for (Button b:
+             buttons) {
+            b.draw(batch);
+        }
 
-        attack.draw(batch);
-        pause.draw(batch);
+        //debugRenderer.render(world, camera.combined.scl(32));
         batch.end();
+
     }
     public void pauseGame(){
         pause.changeState(true);

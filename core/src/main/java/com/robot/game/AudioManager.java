@@ -17,7 +17,7 @@ public class AudioManager {
     private static final float gameOverSoundVolume = 2f;
     private static final float enemyAttackSoundVolume = 0.15f;
     private static final float hitSoundVolume = 0.4f;
-    public static final float scoreSound = 0.7f;
+    public static final float scoreSound = 0.5f;
 
     public AudioManager() {
         score = Gdx.audio.newSound(Gdx.files.internal(Resources.SCORE_SOUND));
@@ -28,7 +28,7 @@ public class AudioManager {
         gameOver = Gdx.audio.newSound(Gdx.files.internal(Resources.GAME_OVER));
         music = Gdx.audio.newMusic(Gdx.files.internal(Resources.MUSIC));
         music.setLooping(true);
-        music.setVolume(0.7f);
+        music.setVolume(1);
         music.play();
     }
 

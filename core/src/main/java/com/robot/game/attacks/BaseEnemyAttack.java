@@ -49,7 +49,7 @@ public class BaseEnemyAttack extends EnemyAttack {
            case ATTACKING:
 
                 if(enemy.getPlayer().isGettingHit() && !hasHit && enemy.getPlayer().getEnemiesAttacks().contains(this, false)){
-                    enemy.getPlayer().reduceHp();
+                    enemy.getPlayer().reduceHp(damage);
                     hasHit = true;
                 }
 

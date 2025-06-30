@@ -18,7 +18,7 @@ public class Main extends Game {
     public static AudioManager audioManager;
     public static GameOverScreen gameOverScreen;
     public static OrthographicCamera camera;
-    public static World world;
+
 
 
     public static StartScreen startScreen;
@@ -36,7 +36,7 @@ public class Main extends Game {
 
 
         Box2D.init();
-        world = new World(new Vector2(0, 0), true);
+
 
 
 

@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.robot.game.constants.GameSettings;
+import com.robot.game.screens.GameScreen;
 
 public class GameObject {
     public void setX(float x) {
@@ -41,7 +42,7 @@ public class GameObject {
     public Sprite sprite;
     public Fixture fixture;
     public Body body;
-    public World world = Main.world;
+    public World world = GameScreen.world;
     public Filter filter = new Filter();
     public TextureRegion textureRegion;
 
