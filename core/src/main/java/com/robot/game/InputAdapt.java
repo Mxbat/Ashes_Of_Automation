@@ -79,7 +79,7 @@ public class InputAdapt extends com.badlogic.gdx.InputAdapter {
             }
 
             if(buttons.get(2).getTouch(touchPos.x, touchPos.y)){
-                if(GameScreen.gameController.getScrap() >= GameSettings.HEAL_COST) {
+                if(GameScreen.gameController.getScrap() >= GameSettings.HEAL_COST && pla.getHp() <7) {
                     buttons.get(2).changeState(true);
                     pla.plusHp(1);
                 }
