@@ -190,9 +190,8 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         if(player.getHp() <=0){
-            System.out.println(gameController.getScore() + "score");
-
             restartGame();
+            return;
         }
 
         if(gameStage == GameStage.PLAYING){
