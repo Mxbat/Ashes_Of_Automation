@@ -8,11 +8,10 @@ import com.badlogic.gdx.utils.Array;
 import com.robot.game.constants.GameSettings;
 import com.robot.game.constants.UI;
 import com.robot.game.enums.GameStage;
-import com.robot.game.enums.PlayerBodyState;
 import com.robot.game.screens.GameScreen;
 
 
-public class InputAdapt extends com.badlogic.gdx.InputAdapter {
+public class GameInputAdapt extends com.badlogic.gdx.InputAdapter {
      World world;
     Vector3 touchPos;
     Main main;
@@ -24,7 +23,7 @@ public class InputAdapt extends com.badlogic.gdx.InputAdapter {
     Camera camera;
     Array<Button> buttons;
 
-    public InputAdapt(Main main, OrthographicCamera camera, Joystick joystick, Array<Button> buttons, Player pla,  World world) {
+    public GameInputAdapt(Main main, OrthographicCamera camera, Joystick joystick, Array<Button> buttons, Player pla, World world) {
         this.main = main;
         this.buttons = buttons;
         this.camera = camera;
@@ -74,6 +73,7 @@ public class InputAdapt extends com.badlogic.gdx.InputAdapter {
 
             if(buttons.get(1).getTouch(touchPos.x, touchPos.y)){
                 joystick.setJoystick(false);
+                AudioManager.pauseMusic();
                 GameScreen.gameStage = GameStage.PAUSED;
                 buttons.get(1).changeState(true);
             }
@@ -92,7 +92,20 @@ public class InputAdapt extends com.badlogic.gdx.InputAdapter {
         else {
             if(buttons.get(1).getTouch(touchPos.x, touchPos.y)){
                 GameScreen.gameStage = GameStage.PLAYING;
+                AudioManager.startMusic();
                 buttons.get(1).changeState(false);
+            }
+            else if(buttons.get(3).getTouch(touchPos.x, touchPos.y)){
+                GameScreen.gameStage = GameStage.PLAYING;
+                AudioManager.startMusic();
+                buttons.get(1).changeState(false);
+            }
+            else if(buttons.get(4).getTouch(touchPos.x, touchPos.y)){
+                GameScreen.restartGame();
+                if(!Save.getMusicDisabled()){
+                    AudioManager.startMusic();
+                }
+
             }
         }
         return true;

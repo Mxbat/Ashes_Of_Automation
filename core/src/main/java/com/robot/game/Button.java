@@ -8,37 +8,45 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Button {
     float x;
     float y;
-    float a;
+    float w, h;
     Sprite sprite;
+    float srcWidth, srcHeight;
     Texture texture;
     TextureRegion textureRegion;
+    private boolean ui;
 
-    public Button(float x, float y, float a, Texture texture) {
+    public Button(float x, float y, float w, float h, Texture texture, boolean ui) {
         this.x = x;
         this.y = y;
-        this.a = a;
-
+        this.w = w;
+        this.h = h;
+        this.ui = ui;
         sprite = new Sprite(texture);
-        sprite.setSize(a, a);
+        sprite.setSize(w, h);
         sprite.setX(x);
         sprite.setY(y);
     }
-    public Button(float x, float y, float a, int scrWidth, int scrHeight, TextureRegion textureRegion) {
+
+    public Button(float x, float y, float w, float h, float srcWidth, float srcHeight, TextureRegion textureRegion, boolean ui) {
         this.x = x;
         this.y = y;
-        this.a = a;
+        this.w = w;
+        this.h = h;
+        this.srcWidth = srcWidth;
+        this.srcHeight = srcHeight;
         this.textureRegion = textureRegion;
-        sprite = new Sprite(textureRegion, 0, 0, scrWidth, scrHeight);
-        sprite.setSize(a, a);
+        this.ui = ui;
+        sprite = new Sprite(textureRegion, 0, 0, (int) srcWidth, (int) srcHeight);
+        sprite.setSize(w, h);
         sprite.setX(x);
         sprite.setY(y);
     }
     public void changeState(boolean b){
         if(b){
-            sprite.setRegion(textureRegion, 100, 0 , 100 , 100);
+            sprite.setRegion(textureRegion, (int) srcWidth, 0 , (int) srcWidth, (int) srcHeight);
         }
         else {
-            sprite.setRegion(textureRegion, 0, 0 , 100 , 100);
+            sprite.setRegion(textureRegion, 0, 0 , (int) srcWidth, (int) srcHeight);
         }
     }
 
@@ -46,6 +54,17 @@ public class Button {
         sprite.draw(batch);
     }
     public boolean getTouch(float tx, float ty){
-        return tx >x && ty > y && tx<x+a && ty < y + a;
+        if(tx >x && ty > y && tx<x+w && ty < y + h && ui){
+            AudioManager.playClick();
+        }
+        return tx >x && ty > y && tx<x+w && ty < y + h;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
     }
 }
