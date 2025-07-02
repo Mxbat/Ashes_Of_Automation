@@ -4,12 +4,8 @@ package com.robot.game;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.robot.game.constants.GameSettings;
 
 import java.util.Random;
-
-import box2dLight.PointLight;
 
 public class Utils {
     public static double doPythagoras(Vector2 start, Vector2 end){

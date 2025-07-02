@@ -12,22 +12,18 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.robot.game.attacks.Attack;
-import com.robot.game.attacks.BaseEnemyAttack;
 import com.robot.game.attacks.EnemyAttack;
 import com.robot.game.attacks.PlayerAttack;
 import com.robot.game.constants.FilterBits;
 import com.robot.game.constants.GameSettings;
 import com.robot.game.constants.PlayerStat;
+import com.robot.game.constants.Scores;
 import com.robot.game.enemies.Enemy;
 import com.robot.game.enums.PlayerBodyState;
 import com.robot.game.enums.PlayerLegsState;
 import com.robot.game.screens.GameScreen;
 
 public class Player extends GameObject {
-    public PlayerBodyState getBodyState(){
-        return bodyState;
-    }
 
     PlayerAttack attack;
     PlayerBodyState bodyState = PlayerBodyState.IDLE;
@@ -85,16 +81,6 @@ public class Player extends GameObject {
     }
 
     private boolean touchingEntrance;
-
-    public boolean isFollowedByCamera() {
-        return followedByCamera;
-    }
-
-    public void setFollowedByCamera(boolean followedByCamera) {
-        this.followedByCamera = followedByCamera;
-    }
-
-    private boolean followedByCamera = true;
 
 
     public double attackCounter;
@@ -339,16 +325,8 @@ public class Player extends GameObject {
         return roundedStamina;
     }
 
-    public Animation getLegsAnim() {
-        return legsAnim;
-    }
-
     public Joystick getJoystick() {
         return joystick;
-    }
-
-    public boolean isRunningBlocked() {
-        return runningBlocked;
     }
 
     public void setRunningBlocked(boolean runningBlocked) {
@@ -362,6 +340,7 @@ public class Player extends GameObject {
     }
 
     public void plusHp(int value) {
+        GameScreen.gameController.plusScore(Scores.SCORE_PER_HEAL);
         GameScreen.gameController.minusScrap(GameSettings.HEAL_COST);
         hp += value;
     }

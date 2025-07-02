@@ -19,8 +19,9 @@ public class AudioManager {
     private static final float enemyAttackSoundVolume = 0.15f;
     private static final float hitSoundVolume = 0.4f;
     public static final float scoreSoundVolume = 0.5f;
+    public static final float clickSoundVolume = 0.5f;
 
-    public AudioManager() {
+    public static void init() {
         click = Gdx.audio.newSound(Gdx.files.internal(Resources.SCORE_SOUND));
         score = Gdx.audio.newSound(Gdx.files.internal(Resources.SCORE_SOUND));
         enemyAttack = Gdx.audio.newSound(Gdx.files.internal(Resources.ENEMY_SOUND));
@@ -74,7 +75,7 @@ public class AudioManager {
         if(Save.getSoundDisabled()){
             return;
         }
-        click.play();
+        click.play(clickSoundVolume);
     }
     public static void playEnemyAttack(){
         if(Save.getSoundDisabled()){

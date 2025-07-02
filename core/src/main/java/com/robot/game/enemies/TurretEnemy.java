@@ -14,7 +14,6 @@ import com.robot.game.Animation;
 import com.robot.game.AudioManager;
 import com.robot.game.Raycast;
 import com.robot.game.Resources;
-import com.robot.game.constants.GameSettings;
 import com.robot.game.screens.GameScreen;
 import com.robot.game.Player;
 import com.robot.game.Room;

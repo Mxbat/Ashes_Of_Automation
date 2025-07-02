@@ -277,10 +277,6 @@ public class GameController {
         return scrap;
     }
 
-    public void setScrap(int scrap) {
-        this.scrap = scrap;
-    }
-
     public void minusScrap(int value){
         scrap -= value;
     }

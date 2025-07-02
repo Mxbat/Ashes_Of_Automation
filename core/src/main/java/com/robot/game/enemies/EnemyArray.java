@@ -17,9 +17,6 @@ public class EnemyArray implements Iterable<Enemy>{
     Main main;
     int startPos = -10000;
     Player player;
-    private final Array<Enemy> hammerPool = new Array<>();
-    private final Array<Enemy> turretPool = new Array<>();
-    private final Array<Enemy> cartPool = new Array<>();
     public Array<Enemy> list = new Array<>();
 
     public HashMap<String, Array<Enemy>> getPoolSet() {
@@ -32,12 +29,15 @@ public class EnemyArray implements Iterable<Enemy>{
         this.main = main;
         this.player = player;
 
+        Array<Enemy> hammerPool = new Array<>();
         for (int i = 0; i < 6; i++) {
             hammerPool.add(new BaseEnemy(startPos, startPos, player, GameScreen.world, room, "Hammer"));
         }
+        Array<Enemy> turretPool = new Array<>();
         for (int i = 0; i < 6; i++) {
             turretPool.add(new TurretEnemy(startPos, startPos, player, GameScreen.world, room));
         }
+        Array<Enemy> cartPool = new Array<>();
         for (int i = 0; i < 3; i++) {
             cartPool.add(new BaseEnemy(startPos, startPos, player, GameScreen.world, room, "Cart"));
         }

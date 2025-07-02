@@ -107,10 +107,4 @@ public class Animation {
     public void setStop(boolean stop) {
         this.stop = stop;
     }
-    public void setFrameSize(int frameWidth, int frameHeight){
-        this.frameWidth = frameWidth*25;
-        frameWidth *= 25;
-        rowsWidth = frameWidth * (textureRegion.getRegionWidth()/frameWidth);
-        this.frameHeight = frameHeight*25;
-    }
 }

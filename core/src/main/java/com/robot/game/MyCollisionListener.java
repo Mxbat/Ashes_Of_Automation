@@ -1,21 +1,16 @@
 package com.robot.game;
 
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.robot.game.attacks.Attack;
 import com.robot.game.attacks.BaseEnemyAttack;
 import com.robot.game.attacks.EnemyAttack;
 import com.robot.game.attacks.PlayerAttack;
 import com.robot.game.attacks.TurretBullet;
-import com.robot.game.constants.GameSettings;
 import com.robot.game.enemies.Enemy;
 import com.robot.game.enemies.BaseEnemy;
 
@@ -185,27 +180,4 @@ public class MyCollisionListener implements ContactListener {
 
     }
 
-    public int angleToObstacle(Body body, Obstacle obstacle){
-        Vector2 point = new Vector2(
-            body.getPosition().cpy().scl(GameSettings.PPM)
-        );
-        int result;
-        int lowX = (int) obstacle.getX();
-        int lowY = (int) obstacle.getY();
-        int topX = (int) ((int) obstacle.getX() + obstacle.getWidth());
-        int topY = (int) ((int) obstacle.getY() + obstacle.getHeight());
-        if(point.x < lowX && point.y > lowY){
-            result = -90;
-        }
-        else if(point.x > lowX && point.y > topY){
-            result = 180;
-        }
-        else if(point.x > topX && point.y < topY){
-            result = 90;
-        }
-        else {
-            result = 0;
-        }
-        return result;
-    }
 }

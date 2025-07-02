@@ -8,10 +8,6 @@ public class Joystick {
     Texture body;
     Texture control;
 
-    public boolean isJoystick() {
-        return isJoystick;
-    }
-
     public void setJoystick(boolean joystick) {
         isJoystick = joystick;
     }
@@ -83,16 +79,16 @@ public class Joystick {
         if (isJoystick) {
             normalize();
             if(!isStarted){
-                startPosX = touchX - width/2;
-                startPosY = touchY - width/2;
+                startPosX = touchX - width/2f;
+                startPosY = touchY - width/2f;
                 x = startPosX;
                 y = startPosY;
                 isSendingMove = true;
                 isStarted = true;
 
             }
-            cx = (int) touchX - cw/2;
-            cy = (int) touchY - cw/2;
+            cx = (int) touchX - cw/2f;
+            cy = (int) touchY - cw/2f;
 
         }
     }
@@ -102,7 +98,7 @@ public class Joystick {
         return angle;
     }
     public float CalculateAngle(){
-        angle = (float) Math.atan2((cx + cw/2) - (x + width/2), (y + width/2) - (cy + cw/2));
+        angle = (float) Math.atan2((cx + cw/2f) - (x + width/2f), (y + width/2f) - (cy + cw/2f));
         return angle;
     }
     public void draw(Batch batch){

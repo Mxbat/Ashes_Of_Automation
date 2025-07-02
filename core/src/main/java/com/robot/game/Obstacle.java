@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.robot.game.constants.FilterBits;
-import com.robot.game.constants.GameSettings;
 
 public class Obstacle extends GameObject{
     Animation animation;

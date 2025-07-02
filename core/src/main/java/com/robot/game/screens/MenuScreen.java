@@ -77,28 +77,17 @@ public class MenuScreen extends ScreenAdapter {
         }
         font.getData().setScale(1);
         font.setColor(Color.WHITE);
-        font.draw(batch, "ИГРАТЬ", UI.START_BUTTON_POS_X + UI.MENU_BUTTON_WIDTH/5, UI.MENU_BUTTON_POS_Y + UI.MENU_BUTTON_HEIGHT/2 + 30);
+        font.draw(batch, "ИГРАТЬ", UI.START_BUTTON_POS_X + UI.MENU_BUTTON_WIDTH/5f, UI.MENU_BUTTON_POS_Y + UI.MENU_BUTTON_HEIGHT/2f + 30);
 
-        font.draw(batch, "ВЫХОД", UI.EXIT_BUTTON_POS_X + UI.MENU_BUTTON_WIDTH/5, UI.MENU_BUTTON_POS_Y + UI.MENU_BUTTON_HEIGHT/2 + 30);
+        font.draw(batch, "ВЫХОД", UI.EXIT_BUTTON_POS_X + UI.MENU_BUTTON_WIDTH/5f, UI.MENU_BUTTON_POS_Y + UI.MENU_BUTTON_HEIGHT/2f + 30);
         font.getData().setScale(0.8f);
-        font.draw(batch, "НАСТРОЙКИ", UI.SETTINGS_BUTTON_POS_X + UI.MENU_BUTTON_WIDTH/9, UI.MENU_BUTTON_POS_Y + UI.MENU_BUTTON_HEIGHT/2 + 25);
+        font.draw(batch, "НАСТРОЙКИ", UI.SETTINGS_BUTTON_POS_X + UI.MENU_BUTTON_WIDTH/9f, UI.MENU_BUTTON_POS_Y + UI.MENU_BUTTON_HEIGHT/2f + 25);
 
         font.draw(batch, "Рекорд:" + Save.getMaxScore(), (float) GameSettings.SCREEN_WIDTH /2 - GameSettings.SCREEN_WIDTH /7.4f , UI.NAME_POS_Y - 200);
         font.getData().setScale(1.5f);
         font.setColor(Color.RED);
         font.draw(batch, "ASHES OF AUTOMATION", UI.NAME_POS_X, UI.NAME_POS_Y);
         batch.end();
-
-    }
-    @Override
-    public void hide(){
-    }
-    @Override
-    public void pause(){
-
-    }
-    @Override
-    public void resume(){
 
     }
     @Override

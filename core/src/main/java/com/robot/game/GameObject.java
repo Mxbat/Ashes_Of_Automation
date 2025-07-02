@@ -30,11 +30,7 @@ public class GameObject {
 
 
 
-    private float width;
-
-    public void setHeight(float height) {
-        this.height = height;
-    }
+    private final float width;
 
     private float height;
     public Texture texture;

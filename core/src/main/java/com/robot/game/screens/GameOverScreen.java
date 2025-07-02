@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.robot.game.AudioManager;
 import com.robot.game.Button;
@@ -81,7 +80,7 @@ public class GameOverScreen extends ScreenAdapter {
         menuButton.draw(batch);
         font.setColor(Color.WHITE);
         font.getData().setScale(1);
-        font.draw(batch, "МЕНЮ", UI.START_BUTTON_POS_X + UI.MENU_BUTTON_WIDTH/4f, UI.MENU_BUTTON_POS_Y + UI.MENU_BUTTON_HEIGHT/2 + 30);
+        font.draw(batch, "МЕНЮ", UI.START_BUTTON_POS_X + UI.MENU_BUTTON_WIDTH/4f, UI.MENU_BUTTON_POS_Y + UI.MENU_BUTTON_HEIGHT/2f + 30);
 
         font.setColor(Color.WHITE);
         font.getData().setScale(0.8f);
@@ -97,21 +96,6 @@ public class GameOverScreen extends ScreenAdapter {
         font.draw(batch, "Ваш счёт:" + finalScore, (float) GameSettings.SCREEN_WIDTH /2 - GameSettings.SCREEN_WIDTH /7.4f , UI.NAME_POS_Y - 200);
 
         batch.end();
-
-    }
-    @Override
-    public void hide(){
-    }
-    @Override
-    public void pause(){
-
-    }
-    @Override
-    public void resume(){
-
-    }
-    @Override
-    public void dispose(){
 
     }
 

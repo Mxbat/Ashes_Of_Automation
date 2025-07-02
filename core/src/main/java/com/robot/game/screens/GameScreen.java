@@ -1,7 +1,5 @@
 package com.robot.game.screens;
 
-import static com.robot.game.Main.batch;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
@@ -19,7 +17,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.robot.game.Resources;
-import com.robot.game.Save;
 import com.robot.game.attacks.AttackArray;
 import com.robot.game.Button;
 import com.robot.game.Raycast;
@@ -81,7 +78,7 @@ public class GameScreen extends ScreenAdapter {
     public static OrthographicCamera camera;
     public OrthographicCamera hudCam;
     public GameScreen(Main main) {
-        this.main = main;
+        GameScreen.main = main;
     }
 
     static public GameController gameController;
@@ -102,10 +99,10 @@ public class GameScreen extends ScreenAdapter {
         menuTexture = new Texture(Resources.MENU_TEXTURE);
         menuSprite = new Sprite(menuTexture);
         menuSprite.setSize(UI.MENU_SIZE, UI.MENU_SIZE);
-        menuSprite.setPosition(GameSettings.SCREEN_WIDTH/2 - UI.MENU_SIZE/2, GameSettings.SCREEN_HEIGHT/2 - UI.MENU_SIZE/2);
+        menuSprite.setPosition(GameSettings.SCREEN_WIDTH/2f - UI.MENU_SIZE/2f, GameSettings.SCREEN_HEIGHT/2f - UI.MENU_SIZE/2f);
 
-        resumeButton = new Button(GameSettings.SCREEN_WIDTH/2f - 250, GameSettings.SCREEN_HEIGHT/2 + 50, 500, 200, uiMenuTexture, false);
-        menuButton = new Button(GameSettings.SCREEN_WIDTH/2f - 250, GameSettings.SCREEN_HEIGHT/2 - 250, 500, 200, uiMenuTexture, false);
+        resumeButton = new Button(GameSettings.SCREEN_WIDTH/2f - 250, GameSettings.SCREEN_HEIGHT/2f + 50, 500, 200, uiMenuTexture, false);
+        menuButton = new Button(GameSettings.SCREEN_WIDTH/2f - 250, GameSettings.SCREEN_HEIGHT/2f - 250, 500, 200, uiMenuTexture, false);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT);
@@ -286,9 +283,9 @@ public class GameScreen extends ScreenAdapter {
             resumeButton.draw(batch);
             menuButton.draw(batch);
             font.getData().setScale(0.7f);
-            font.draw(batch, "Продолжить",GameSettings.SCREEN_WIDTH/2 - 195, GameSettings.SCREEN_HEIGHT/2 + 175);
+            font.draw(batch, "Продолжить",GameSettings.SCREEN_WIDTH/2f - 195, GameSettings.SCREEN_HEIGHT/2f + 175);
             font.getData().setScale(1f);
-            font.draw(batch, "Сдаться",GameSettings.SCREEN_WIDTH/2 - 175, GameSettings.SCREEN_HEIGHT/2 - 115);
+            font.draw(batch, "Сдаться",GameSettings.SCREEN_WIDTH/2f - 175, GameSettings.SCREEN_HEIGHT/2f - 115);
         }
         else {
             joystick.draw(batch);

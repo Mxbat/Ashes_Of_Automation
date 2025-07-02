@@ -8,7 +8,7 @@ public class UI {
     public static final float ATTACK_BUTTON_DIAMETER = (float) GameSettings.SCREEN_HEIGHT /3;
 
     public static final float HEAL_BUTTON_POS_X = (float) GameSettings.SCREEN_WIDTH /2 + (float) GameSettings.SCREEN_WIDTH/4.5f;
-    public static final float HEAL_BUTTON_POS_Y = (float) ((float) GameSettings.SCREEN_HEIGHT/2 - (float) GameSettings.SCREEN_HEIGHT/2.5f);
+    public static final float HEAL_BUTTON_POS_Y = (float) GameSettings.SCREEN_HEIGHT/2 - (float) GameSettings.SCREEN_HEIGHT/2.5f;
     public static final float HEAL_BUTTON_DIAMETER = (float) GameSettings.SCREEN_HEIGHT /5.2f;
 
     public static final float JOYSTICK_POS_X = (float) GameSettings.SCREEN_WIDTH /2 - (float) GameSettings.SCREEN_WIDTH/3;

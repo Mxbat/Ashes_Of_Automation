@@ -1,12 +1,10 @@
 package com.robot.game;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.robot.game.constants.GameSettings;
-import com.robot.game.screens.GameOverScreen;
 import com.robot.game.screens.MenuScreen;
 import com.robot.game.screens.SettingsScreen;
 
@@ -29,14 +27,10 @@ public class Main extends Game {
     @Override
     public void create() {
         settingsScreen = new SettingsScreen( this);
-        audioManager = new AudioManager();
-
-
+        AudioManager.init();
 
 
         Box2D.init();
-
-
 
 
         camera = new OrthographicCamera();

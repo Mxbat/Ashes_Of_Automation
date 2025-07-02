@@ -152,10 +152,6 @@ public class EnemySpawnController {
        return freePositions;
     }
 
-    public Array<Vector2> getFreePositions() {
-        return freePositions;
-    }
-
     public void setFreePositions(Array<Vector2> freePositions) {
         this.freePositions = freePositions;
     }

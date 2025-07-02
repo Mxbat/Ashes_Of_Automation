@@ -48,7 +48,7 @@ public class SettingsScreen extends ScreenAdapter {
         menu = new Sprite(menuTexture);
         checkBoxTexture = new TextureRegion(new Texture(Resources.CHECK_BOX_TEXTURE));
         menu.setSize(UI.MENU_SIZE, UI.MENU_SIZE);
-        menu.setPosition(GameSettings.SCREEN_WIDTH/2 - UI.MENU_SIZE/2, GameSettings.SCREEN_HEIGHT/2 - UI.MENU_SIZE/2);
+        menu.setPosition(GameSettings.SCREEN_WIDTH/2f - UI.MENU_SIZE/2f, GameSettings.SCREEN_HEIGHT/2f - UI.MENU_SIZE/2f);
 
         musicCheckBox = new Button(menu.getX() + UI.MENU_SIZE/6f, menu.getY() + UI.MENU_SIZE/2f, 100, 100, 100, 100, checkBoxTexture, true);
         soundCheckBox = new Button(menu.getX() + UI.MENU_SIZE/6f, menu.getY() + UI.MENU_SIZE/4f, 100, 100,100, 100, checkBoxTexture, true);
@@ -105,30 +105,9 @@ public class SettingsScreen extends ScreenAdapter {
         soundCheckBox.draw(batch);
         font.draw(batch, "Музыка",menu.getX() + UI.MENU_SIZE/3f, musicCheckBox.getY() + 85);
         font.draw(batch, "Звуки",menu.getX() + UI.MENU_SIZE/3f, soundCheckBox.getY() + 85);
-        font.draw(batch, "НАСТРОЙКИ",GameSettings.SCREEN_WIDTH/2f - GameSettings.SCREEN_WIDTH/6.7f, GameSettings.SCREEN_HEIGHT - UI.MENU_SIZE/4);
+        font.draw(batch, "НАСТРОЙКИ",GameSettings.SCREEN_WIDTH/2f - GameSettings.SCREEN_WIDTH/6.7f, GameSettings.SCREEN_HEIGHT - UI.MENU_SIZE/4f);
         batch.end();
     }
 
-    @Override
-    public void resize (int width, int height) {
-    }
-
-
-
-    @Override
-    public void hide () {
-    }
-
-    @Override
-    public void pause () {
-    }
-
-    @Override
-    public void resume () {
-    }
-
-    @Override
-    public void dispose () {
-    }
 
 }

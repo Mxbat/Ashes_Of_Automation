@@ -41,7 +41,6 @@ public class Resources {
     public static final String PAUSE_BUTTON = "controls/pause_button.png";
     public static final String ENEMY_SOUND = "sounds/enemy_attack_sound.mp3";
     public static final String SCORE_SOUND = "sounds/scoring.mp3";
-    public static final String CLICK_SOUND = "sounds/click.mp3";
     public static final String HEAL_BUTTON = "controls/heal_button.png";
     public static final String UI_BUTTON_TEXTURE = "controls/ui_button.png";
     public static final String BACK_BUTTON_TEXTURE = "controls/back_button.png";

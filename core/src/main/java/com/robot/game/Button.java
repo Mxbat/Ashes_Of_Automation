@@ -11,9 +11,8 @@ public class Button {
     float w, h;
     Sprite sprite;
     float srcWidth, srcHeight;
-    Texture texture;
     TextureRegion textureRegion;
-    private boolean ui;
+    private final boolean ui;
 
     public Button(float x, float y, float w, float h, Texture texture, boolean ui) {
         this.x = x;

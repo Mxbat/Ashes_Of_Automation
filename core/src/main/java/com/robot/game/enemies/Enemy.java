@@ -59,7 +59,7 @@ public abstract class Enemy extends GameObject {
     TextureRegion textureRegion;
     float speed;
     public boolean hasToBeDestroyed;
-    public float angle = 0;
+    public float angle;
     public Player player;
     float playerAngle;
 
@@ -174,7 +174,8 @@ public abstract class Enemy extends GameObject {
             baseDamage += 1;
         }
         shouldIncreaseDamage = !shouldIncreaseDamage;
-    };
+    }
+
     public String getType() {
         return type;
     }
