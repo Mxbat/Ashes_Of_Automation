@@ -23,6 +23,7 @@ import com.robot.game.constants.UI;
 public class GameOverScreen extends ScreenAdapter {
     float startCounter;
     Main main;
+    private float accessCounter;
     OrthographicCamera camera = new OrthographicCamera();
     BitmapFont font;
     FontManager fontManager = new FontManager();
@@ -47,7 +48,7 @@ public class GameOverScreen extends ScreenAdapter {
         AudioManager.playGameOver();
         menuButton = new Button(UI.START_BUTTON_POS_X, UI.MENU_BUTTON_POS_Y, UI.MENU_BUTTON_WIDTH,
             UI.MENU_BUTTON_HEIGHT, uiButtonTexture, true);
-        Gdx.input.setInputProcessor(new GameOverInputAdapt(menuButton, main, finalScore));
+
         startCounter = 2;
 
         camera.setToOrtho(false, GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT);
@@ -58,6 +59,9 @@ public class GameOverScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+
+
+
         newHighScoreTextCounter += Gdx.graphics.getDeltaTime();
         batch.begin();
         ScreenUtils.clear(new Color(0.1f, 0.1f, 0.1f, 1));
@@ -76,11 +80,18 @@ public class GameOverScreen extends ScreenAdapter {
 
 
 
+        if(accessCounter > 2){
+            menuButton.draw(batch);
+            font.draw(batch, "МЕНЮ", UI.START_BUTTON_POS_X + UI.MENU_BUTTON_WIDTH/4f, UI.MENU_BUTTON_POS_Y + UI.MENU_BUTTON_HEIGHT/2f + 30);
+            Gdx.input.setInputProcessor(new GameOverInputAdapt(menuButton, main, finalScore));
+        }
+        else {
+            accessCounter += Gdx.graphics.getDeltaTime();
+        }
 
-        menuButton.draw(batch);
         font.setColor(Color.WHITE);
         font.getData().setScale(1);
-        font.draw(batch, "МЕНЮ", UI.START_BUTTON_POS_X + UI.MENU_BUTTON_WIDTH/4f, UI.MENU_BUTTON_POS_Y + UI.MENU_BUTTON_HEIGHT/2f + 30);
+
 
         font.setColor(Color.WHITE);
         font.getData().setScale(0.8f);
