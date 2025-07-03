@@ -44,6 +44,7 @@ public class SettingsScreen extends ScreenAdapter {
 
     @Override
     public void show () {
+        Gdx.input.setInputProcessor(null);
         menuTexture = new Texture(Resources.MENU_TEXTURE);
         menu = new Sprite(menuTexture);
         checkBoxTexture = new TextureRegion(new Texture(Resources.CHECK_BOX_TEXTURE));
@@ -52,7 +53,6 @@ public class SettingsScreen extends ScreenAdapter {
 
         musicCheckBox = new Button(menu.getX() + UI.MENU_SIZE/6f, menu.getY() + UI.MENU_SIZE/2f, 100, 100, 100, 100, checkBoxTexture, true);
         soundCheckBox = new Button(menu.getX() + UI.MENU_SIZE/6f, menu.getY() + UI.MENU_SIZE/4f, 100, 100,100, 100, checkBoxTexture, true);
-
 
         backTexture = new Texture(Resources.BACK_BUTTON_TEXTURE);
         backButton = new Button(10, GameSettings.SCREEN_HEIGHT - 160, 150, 150, backTexture, true);

@@ -44,7 +44,7 @@ public class GameOverScreen extends ScreenAdapter {
 
 
     public void show() {
-
+        Gdx.input.setInputProcessor(null);
         AudioManager.playGameOver();
         menuButton = new Button(UI.START_BUTTON_POS_X, UI.MENU_BUTTON_POS_Y, UI.MENU_BUTTON_WIDTH,
             UI.MENU_BUTTON_HEIGHT, uiButtonTexture, true);
@@ -79,7 +79,7 @@ public class GameOverScreen extends ScreenAdapter {
 
 
 
-
+        font.setColor(Color.WHITE);
         if(accessCounter > 2){
             menuButton.draw(batch);
             font.draw(batch, "МЕНЮ", UI.START_BUTTON_POS_X + UI.MENU_BUTTON_WIDTH/4f, UI.MENU_BUTTON_POS_Y + UI.MENU_BUTTON_HEIGHT/2f + 30);
