@@ -119,9 +119,6 @@ public abstract class Enemy extends GameObject {
     }
 
 
-    public void setSensorIfNeed() {
-        getFixture().setSensor(enemyState != EnemyState.ACTION);
-    }
     void countSpawn(){
         if(!spawning){
             return;

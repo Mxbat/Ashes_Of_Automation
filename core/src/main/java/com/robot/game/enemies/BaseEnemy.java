@@ -203,7 +203,7 @@ public class BaseEnemy extends Enemy{
 
     public void update(){
 
-        setSensorIfNeed();
+
         countSpawn();
 
         if(spawning){

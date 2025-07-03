@@ -45,6 +45,8 @@ public class GameScreen extends ScreenAdapter {
 
     BitmapFont font;
     Texture staminaIcon;
+    private static final float MIN_FRAME_LENGTH = 1f/60f;
+    private float timeSinceLastRender = 0;
 
     Joystick joystick;
     Texture heartIcon;
@@ -189,12 +191,15 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+
+
         if(player.getHp() <=0){
             restartGame();
             return;
         }
 
         if(gameStage == GameStage.PLAYING){
+
             if(!gameController.enemyArray.list.isEmpty()) enemy = gameController.enemyArray.getClosestEnemy();
 
             gameController.update();
@@ -216,9 +221,12 @@ public class GameScreen extends ScreenAdapter {
             pointLight.setPosition(player.body.getPosition());
             player.update(enemy);
 
+            timeSinceLastRender += delta;
+            if (timeSinceLastRender >= MIN_FRAME_LENGTH) {
+                world.step(1/60f, 5, 5);
+                timeSinceLastRender -= MIN_FRAME_LENGTH;
+            }
 
-
-            world.step(1/60f, 5, 5);
 
 
             joystick.normalize();
